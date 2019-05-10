@@ -110,6 +110,10 @@ class custom_menu_items {
 	static public function add_item( $menu_slug, $title, $url, $order = 0, $parent = 0, $ID = null, $classes = array() ){
 		$instance = custom_menu_items::get_instance();
 		$instance->menus[ $menu_slug ] = $menu_slug;
+		global $wp; $current_url = home_url( add_query_arg( array(), $wp->request ) );
+		if ($current_url === $url || parse_url( $current_url )['path'] === $url) {
+			$classes[] = 'current-menu-item';
+		}
 		$instance->menu_items[] = array(
 			'menu'    => $menu_slug,
 			'title'   => $title,
